@@ -1,0 +1,1 @@
+# Python Scripts for Google Analytics Premium BigQuery querying, table creation, and export to cloud storage. 
