@@ -1,0 +1,5 @@
+project_id: default-1234
+dataset_id: 12345678
+cloud_storage_dir: gs://BUCKET_NAME/
+hits_query: "SELECT date, fullVisitorId, visitId, hits.hitNumber, hits.page.pagePath, hits.eventInfo.eventCategory, hits.eventInfo.eventAction, hits.eventInfo.eventLabel, MAX(IF(hits.customDimensions.index=44, hits.customDimensions.value, NULL)) WITHIN hits AS BoldchatID, MAX(IF(hits.customDimensions.index=46, hits.customDimensions.value, NULL)) WITHIN hits AS AdobeCampaignID, MAX(IF(hits.customDimensions.index=34, hits.customDimensions.value, NULL)) WITHIN hits AS Event_Page_Area FROM ( TABLE_DATE_RANGE([{0}.ga_sessions_], DATE_ADD(CURRENT_TIMESTAMP(), -{1}, 'DAY'), DATE_ADD(CURRENT_TIMESTAMP(), -{1}, 'DAY'))) ORDER BY date ASC;"
+sessions_query: "SELECT date, fullVisitorId, visitId, trafficSource.source, trafficSource.medium, trafficSource.campaign, trafficSource.adContent FROM ( TABLE_DATE_RANGE([{0}.ga_sessions_], DATE_ADD(CURRENT_TIMESTAMP(), -{1}, 'DAY'), DATE_ADD(CURRENT_TIMESTAMP(), -{1}, 'DAY'))) ORDER BY date ASC;"

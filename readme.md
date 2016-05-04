@@ -1,1 +1,3 @@
-# Python Scripts for Google Analytics Premium BigQuery querying, table creation, and export to cloud storage. 
+# Export from Google Analytics Premium BigQuery
+## _Python Scripts for Google Analytics Premium BigQuery querying, table creation, and export to cloud storage._
+All the python files reference "bq_creds.yml". bq_creds_SAMPLE.yml has been provided for reference. Fill in your corresponding project_id, dataset_id, cloud_storage_dir, and queries and save this file as "bq_creds.yml" so the other python scripts can reference these account credentials/details.
