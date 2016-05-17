@@ -28,12 +28,13 @@ import yaml
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
-table_name = string.replace(filename, ".csv", "")
 bq_import_creds = yaml.load(open('bq_import_creds.yml'))
 project_id = bq_import_creds['project_id']
 dataset_id = bq_import_creds['dataset_id']
 source_schema = bq_import_creds['schema']
-source_path = cloud_storage_dir+table_id+".csv"
+table_name = dataset_id+string.replace(filename, ".csv", "")
+source_path = cloud_storage_dir+table_id+filename
+data_path = source_path
 
 # [START load_table]
 def load_table(bigquery, project_id, dataset_id, table_name, source_schema,
