@@ -20,14 +20,20 @@ This sample is used on this page:
 For more information, see the README.md under /bigquery.
 """
 
-import argparse
 import json
 import time
 import uuid
+import yaml
 
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
+table_name = string.replace(filename, ".csv", "")
+bq_import_creds = yaml.load(open('bq_import_creds.yml'))
+project_id = bq_import_creds['project_id']
+dataset_id = bq_import_creds['dataset_id']
+source_schema = bq_import_creds['schema']
+source_path = cloud_storage_dir+table_id+".csv"
 
 # [START load_table]
 def load_table(bigquery, project_id, dataset_id, table_name, source_schema,
@@ -122,42 +128,3 @@ def main(project_id, dataset_id, table_name, schema_file, data_path,
     poll_job(bigquery, job)
 # [END run]
 
-
-# [START main]
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(
-        description=__doc__,
-        formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('project_id', help='Your Google Cloud project ID.')
-    parser.add_argument('dataset_id', help='A BigQuery dataset ID.')
-    parser.add_argument(
-        'table_name', help='Name of the table to load data into.')
-    parser.add_argument(
-        'schema_file',
-        help='Path to a schema file describing the table schema.')
-    parser.add_argument(
-        'data_path',
-        help='Google Cloud Storage path to the CSV data, for example: '
-             'gs://mybucket/in.csv')
-    parser.add_argument(
-        '-p', '--poll_interval',
-        help='How often to poll the query for completion (seconds).',
-        type=int,
-        default=1)
-    parser.add_argument(
-        '-r', '--num_retries',
-        help='Number of times to retry in case of 500 error.',
-        type=int,
-        default=5)
-
-    args = parser.parse_args()
-
-    main(
-        args.project_id,
-        args.dataset_id,
-        args.table_name,
-        args.schema_file,
-        args.data_path,
-        args.poll_interval,
-        args.num_retries)
-# [END main]
