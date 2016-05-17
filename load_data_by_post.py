@@ -22,10 +22,12 @@ For more information, see the README.md under /bigquery.
 import argparse
 import json
 import time
+import yaml
 
 from googleapiclient import discovery
 from googleapiclient.http import MediaFileUpload
 from oauth2client.client import GoogleCredentials
+from datetime import date, timedelta
 
 
 # [START make_post]

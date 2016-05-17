@@ -25,10 +25,10 @@ from oauth2client.client import GoogleCredentials
 date_offset = 2
 yesterday = (date.today() - timedelta(date_offset)).strftime('%Y%m%d')
 table_id = '{}_hits'.format(yesterday)
-bq_creds = yaml.load(open('bq_creds.yml'))
-project_id = bq_creds['project_id']
-dataset_id = bq_creds['dataset_id']
-cloud_storage_dir = bq_creds['cloud_storage_dir']
+bq_report_creds = yaml.load(open('bq_report_creds.yml'))
+project_id = bq_report_creds['project_id']
+dataset_id = bq_report_creds['dataset_id']
+cloud_storage_dir = bq_report_creds['cloud_storage_dir']
 cloud_storage_path = cloud_storage_dir+table_id+".csv"
 
 # [START export_table]

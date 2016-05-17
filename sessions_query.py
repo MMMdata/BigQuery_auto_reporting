@@ -27,10 +27,10 @@ from datetime import date, timedelta
 date_offset = 2
 yesterday = (date.today() - timedelta(date_offset)).strftime('%Y%m%d')
 table_id = '{}_sessions'.format(yesterday)
-bq_creds = yaml.load(open('bq_creds.yml'))
-project_id = bq_creds['project_id']
-dataset_id = bq_creds['dataset_id']
-query = bq_creds['sessions_query'].format(dataset_id,date_offset)
+bq_report_creds = yaml.load(open('bq_report_creds.yml'))
+project_id = bq_report_creds['project_id']
+dataset_id = bq_report_creds['dataset_id']
+query = bq_report_creds['sessions_query'].format(dataset_id,date_offset)
 # [START async_query]
 def async_query(bigquery, project_id, query, batch=False, num_retries=5):
     # Generate a unique job_id so retries
