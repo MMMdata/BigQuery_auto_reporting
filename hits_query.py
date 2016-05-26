@@ -23,13 +23,13 @@ from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 from datetime import date, timedelta
 
-date_offset = 2
+date_offset = 1
 yesterday = (date.today() - timedelta(date_offset)).strftime('%Y%m%d')
 table_id = '{}_hits'.format(yesterday)
-bq_report_creds = yaml.load(open('bq_report_creds.yml'))
-project_id = bq_creds['project_id']
-dataset_id = bq_creds['dataset_id']
-query = bq_creds['hits_query'].format(dataset_id,date_offset)
+bq_report_creds = yaml.load(open('bq_report_creds_ytd.yml'))
+project_id = bq_report_creds['project_id']
+dataset_id = bq_report_creds['dataset_id']
+query = bq_report_creds['hits_query'].format(dataset_id,date_offset)
 # [START async_query]
 def async_query(bigquery, project_id, query, batch=False, num_retries=5):
     # Generate a unique job_id so retries
@@ -43,6 +43,7 @@ def async_query(bigquery, project_id, query, batch=False, num_retries=5):
             'query': {
                 'query': query,
                 'priority': 'BATCH' if batch else 'INTERACTIVE',
+                'allowLargeResults': True,
                 'destinationTable': {
                     'projectId': project_id,
                     'datasetId': dataset_id,
